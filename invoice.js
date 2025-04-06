@@ -8,7 +8,7 @@ export function renderInvoice() {
   const totalBox = document.getElementById("invoice-total");
 
   if (!selectedMonth) {
-    list.innerHTML = "<li>Selecione um mês para visualizar a fatura.</li>";
+    list.innerHTML = "<li style='padding: 10px;'>Selecione um mês para visualizar a fatura.</li>";
     totalBox.textContent = "R$ 0,00";
     return;
   }
@@ -34,6 +34,15 @@ export function renderInvoice() {
     `;
   }).join("");
 
-  list.innerHTML = itemsHTML || "<li>Nenhuma transação com crédito neste mês.</li>";
+  list.innerHTML = itemsHTML || "<li style='padding: 10px;'>Nenhuma transação com crédito neste mês.</li>";
   totalBox.textContent = `R$ ${total.toFixed(2)}`;
+}
+
+export function setDefaultInvoiceMonth() {
+  const monthInput = document.getElementById("invoice-month");
+  if (!monthInput.value) {
+    const today = new Date();
+    const month = today.toISOString().slice(0, 7); // yyyy-mm
+    monthInput.value = month;
+  }
 }

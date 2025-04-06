@@ -94,7 +94,7 @@ window.navigateTo = function (section) {
   if (section === "dashboard") renderDashboard();
   if (section === "list-transactions") renderTransactionsList();
   if (section === "new-transaction") updateCategoryOptions(document.getElementById("type").value);
-  if (section === "invoice") renderInvoice();
+  if (section === "invoice") { setDefaultInvoiceMonth(); renderInvoice(); }
 };
 
 
@@ -107,6 +107,6 @@ window.addEventListener("DOMContentLoaded", () => {
   updateCategoryOptions("entrada");
 });
 
-import { renderInvoice } from './invoice.js';
+import { renderInvoice, setDefaultInvoiceMonth } from './invoice.js';
 
 document.getElementById("invoice-month").addEventListener("change", renderInvoice);
