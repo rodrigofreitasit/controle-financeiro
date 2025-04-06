@@ -136,3 +136,103 @@ button[type="submit"]:hover {
 .transactions-table tr.expense-row {
   background-color: #fee2e2;
 }
+
+.navbar {
+  display: none;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+}
+
+.bottom-nav button {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #4F46E5;
+  font-weight: 500;
+}
+
+.bottom-nav button svg {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 4px;
+}
+
+#new-transaction-section h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 22px;
+}
+
+#new-transaction-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #4F46E5;
+}
+
+input,
+select,
+textarea {
+  padding: 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: #F9FAFB;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #4F46E5;
+}
+
+button[type="submit"] {
+  background-color: #4F46E5;
+  color: white;
+  padding: 14px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #4338ca;
+}
+
+#message {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  color: #16a34a;
+}
