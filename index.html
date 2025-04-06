@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Transação</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Nova Transação</h1>
+    <form id="transaction-form">
+      <div class="form-group">
+        <label for="amount">Valor</label>
+        <input type="number" id="amount" required placeholder="Ex: 100.00" />
+      </div>
+
+      <div class="form-group">
+        <label for="type">Tipo</label>
+        <select id="type">
+          <option value="entrada">Entrada</option>
+          <option value="saida">Saída</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Categoria</label>
+        <select id="category">
+          <option value="alimentacao">Alimentação</option>
+          <option value="transporte">Transporte</option>
+          <option value="lazer">Lazer</option>
+          <option value="saude">Saúde</option>
+          <option value="outros">Outros</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="payment">Pagamento</label>
+        <select id="payment">
+          <option value="debito">Débito</option>
+          <option value="credito">Crédito</option>
+          <option value="pix">Pix</option>
+          <option value="dinheiro">Dinheiro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Data</label>
+        <input type="date" id="date" required />
+      </div>
+
+      <div class="form-group">
+        <label for="notes">Observação</label>
+        <textarea id="notes" rows="2" placeholder="Opcional..."></textarea>
+      </div>
+
+      <button type="submit">Salvar Transação</button>
+    </form>
+    <div id="message"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
