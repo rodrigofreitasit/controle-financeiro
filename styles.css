@@ -236,3 +236,14 @@ button[type="submit"]:hover {
   margin-top: 10px;
   color: #16a34a;
 }
+
+.top-categories ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.top-categories ul li {
+  margin-bottom: 6px;
+}

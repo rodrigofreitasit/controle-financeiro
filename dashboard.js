@@ -22,23 +22,26 @@ export function renderDashboard() {
   document.getElementById("total-incomes").textContent = `Entradas: R$ ${totalIncomes.toFixed(2)}`;
   document.getElementById("total-expenses").textContent = `Saídas: R$ ${totalExpenses.toFixed(2)}`;
 
-  const topList = Object.entries(categoryTotals)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 3)
-    .map(([cat, val]) => `<li>${cat}: R$ ${val.toFixed(2)}</li>`).join("");
+  renderCategoryList(categoryTotals, totalExpenses);
+  renderPieChart(categoryTotals, totalExpenses);
+}
 
-  document.querySelector("#top-categories ul").innerHTML = topList;
-
-  renderPieChart(categoryTotals);
+function renderCategoryList(data, total) {
+  const container = document.querySelector("#top-categories ul");
+  const entries = Object.entries(data).sort((a, b) => b[1] - a[1]);
+  container.innerHTML = entries.map(([cat, val]) => {
+    const percent = ((val / total) * 100).toFixed(1);
+    return `<li><strong>${cat}</strong>: R$ ${val.toFixed(2)} (${percent}%)</li>`;
+  }).join("");
 }
 
 let pie;
 
-function renderPieChart(data) {
+function renderPieChart(data, total) {
   const ctx = document.getElementById('pieChart').getContext('2d');
   if (pie) pie.destroy();
   pie = new Chart(ctx, {
-    type: 'pie',
+    type: 'doughnut',
     data: {
       labels: Object.keys(data),
       datasets: [{
@@ -48,7 +51,40 @@ function renderPieChart(data) {
       }]
     },
     options: {
-      responsive: true
-    }
+      cutout: '70%',
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              let val = ctx.raw;
+              let percent = ((val / total) * 100).toFixed(1);
+              return `${ctx.label}: R$ ${val.toFixed(2)} (${percent}%)`;
+            }
+          }
+        },
+        legend: {
+          display: false
+        }
+      }
+    },
+    plugins: [{
+      id: 'center-text',
+      beforeDraw(chart) {
+        const { width } = chart;
+        const { height } = chart;
+        const ctx = chart.ctx;
+        ctx.restore();
+        const fontSize = (height / 130).toFixed(2);
+        ctx.font = `${fontSize}em Inter`;
+        ctx.textBaseline = "middle";
+
+        const text = `Total: R$ ${total.toFixed(2)}`;
+        const textX = Math.round((width - ctx.measureText(text).width) / 2);
+        const textY = height / 2;
+        ctx.fillStyle = '#4F46E5';
+        ctx.fillText(text, textX, textY);
+        ctx.save();
+      }
+    }]
   });
 }
