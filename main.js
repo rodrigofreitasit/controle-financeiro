@@ -85,6 +85,8 @@ document.getElementById("transaction-form").addEventListener("submit", function 
 });
 
 window.navigateTo = function (section) {
+  document.getElementById("invoice-section").style.display = section === "invoice" ? "block" : "none";
+  if (section === "invoice") renderInvoice();
   document.getElementById("dashboard-section").style.display = section === "dashboard" ? "block" : "none";
   document.getElementById("new-transaction-section").style.display = section === "new-transaction" ? "block" : "none";
   document.getElementById("list-transactions-section").style.display = section === "list-transactions" ? "block" : "none";
@@ -102,3 +104,7 @@ window.addEventListener("DOMContentLoaded", () => {
   renderTransactionsList();
   updateCategoryOptions("entrada");
 });
+
+import { renderInvoice } from './invoice.js';
+
+document.getElementById("invoice-month").addEventListener("change", renderInvoice);
