@@ -74,7 +74,7 @@ function renderPieChart(data, total) {
         const { height } = chart;
         const ctx = chart.ctx;
         ctx.restore();
-        const fontSize = (height / 130).toFixed(2);
+        const fontSize = Math.min(height, width) / 120;
         ctx.font = `${fontSize}em Inter`;
         ctx.textBaseline = "middle";
 
