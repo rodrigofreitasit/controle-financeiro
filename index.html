@@ -16,21 +16,37 @@
     <button onclick="navigateTo('list-transactions')">Todas Transações</button>
   </nav>
 
-  <div class="container" id="dashboard-section">
-    <h1>Visão Geral</h1>
-    <div class="summary">
-      <div class="saldo" id="balance">Saldo: R$ 0,00</div>
-      <div class="totals">
-        <span id="total-incomes">Entradas: R$ 0,00</span>
-        <span id="total-expenses">Saídas: R$ 0,00</span>
+  
+<div class="container" id="dashboard-section">
+  <h1 style="text-align:center; font-size:22px; margin-bottom:16px;">Visão Geral</h1>
+  <div class="dashboard-grid">
+    <div class="card">
+      <div class="card-title">Saldo Atual</div>
+      <div class="card-content" id="balance">R$ 0,00</div>
+    </div>
+    <div class="row-cards">
+      <div class="card">
+        <div class="card-title">Entradas</div>
+        <div class="card-content" id="total-incomes">R$ 0,00</div>
       </div>
-      <div class="top-categories" id="top-categories">
-        <h2>Top Categorias</h2>
-        <ul></ul>
+      <div class="card">
+        <div class="card-title">Saídas</div>
+        <div class="card-content" id="total-expenses">R$ 0,00</div>
       </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Gráfico por Categoria</div>
       <canvas id="pieChart" width="300" height="300"></canvas>
     </div>
+    <div class="card">
+      <div class="card-title">Top Categorias</div>
+      <div id="top-categories">
+        <ul></ul>
+      </div>
+    </div>
   </div>
+</div>
+        
 
   <div class="container" id="new-transaction-section" style="display:none;">
     <h1>Nova Transação</h1>
