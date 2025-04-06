@@ -24,23 +24,61 @@ document.getElementById("type").addEventListener("change", function () {
   updateCategoryOptions(this.value);
 });
 
+document.getElementById("payment").addEventListener("change", function () {
+  const isCredit = this.value === "credito";
+  document.getElementById("installments-toggle").style.display = isCredit ? "block" : "none";
+  document.getElementById("installments-group").style.display = "none";
+});
+
+document.getElementById("is-parceled").addEventListener("change", function () {
+  document.getElementById("installments-group").style.display = this.checked ? "block" : "none";
+});
+
 document.getElementById("transaction-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const transaction = {
-    amount: parseFloat(document.getElementById("amount").value),
-    type: document.getElementById("type").value,
-    category: document.getElementById("category").value,
-    payment: document.getElementById("payment").value,
-    date: document.getElementById("date").value,
-    notes: document.getElementById("notes").value
-  };
+  const amount = parseFloat(document.getElementById("amount").value);
+  const type = document.getElementById("type").value;
+  const category = document.getElementById("category").value;
+  const payment = document.getElementById("payment").value;
+  const date = document.getElementById("date").value;
+  const notes = document.getElementById("notes").value;
+  const isParceled = document.getElementById("is-parceled").checked;
+  const installments = parseInt(document.getElementById("installments").value || "1");
 
-  saveTransaction(transaction);
+  if (payment === "credito" && isParceled && installments > 1) {
+    const valuePerInstallment = amount / installments;
+    const baseDate = new Date(date);
+    for (let i = 0; i < installments; i++) {
+      const installmentDate = new Date(baseDate);
+      installmentDate.setMonth(baseDate.getMonth() + i);
+      const tx = {
+        amount: valuePerInstallment,
+        type,
+        category,
+        payment,
+        date: installmentDate.toISOString().split("T")[0],
+        notes: `${notes} (${i + 1}/${installments})`
+      };
+      saveTransaction(tx);
+    }
+  } else {
+    const transaction = {
+      amount,
+      type,
+      category,
+      payment,
+      date,
+      notes
+    };
+    saveTransaction(transaction);
+  }
 
   document.getElementById("message").textContent = "Transação salva com sucesso!";
   document.getElementById("transaction-form").reset();
   updateCategoryOptions("entrada");
+  document.getElementById("installments-toggle").style.display = "none";
+  document.getElementById("installments-group").style.display = "none";
 
   renderDashboard();
   renderTransactionsList();

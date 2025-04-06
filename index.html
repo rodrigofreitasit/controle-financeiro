@@ -69,8 +69,29 @@
         <select id="category"></select>
       </div>
 
+      
       <div class="form-group">
         <label for="payment">Pagamento</label>
+        <select id="payment">
+          <option value="debito">Débito</option>
+          <option value="credito">Crédito</option>
+          <option value="pix">Pix</option>
+          <option value="dinheiro">Dinheiro</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="installments-toggle" style="display:none;">
+        <label>
+          <input type="checkbox" id="is-parceled" />
+          Parcelar compra?
+        </label>
+      </div>
+
+      <div class="form-group" id="installments-group" style="display:none;">
+        <label for="installments">Quantidade de parcelas</label>
+        <input type="number" id="installments" min="1" max="24" value="1" />
+      </div>
+            
         <select id="payment">
           <option value="debito">Débito</option>
           <option value="credito">Crédito</option>
