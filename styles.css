@@ -247,3 +247,62 @@ button[type="submit"]:hover {
 .top-categories ul li {
   margin-bottom: 6px;
 }
+
+.category-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.category-card .card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.category-card .icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.category-card .category-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.card-body .tx-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.card-body .tx-item:last-child {
+  border-bottom: none;
+}
+
+.card-body .tx-desc {
+  flex: 1;
+}
+
+.card-body .tx-value {
+  font-weight: 500;
+  margin-left: 8px;
+  color: #374151;
+}
+
+.card-body .tx-date {
+  margin-left: 12px;
+  font-size: 12px;
+  color: #9ca3af;
+}
