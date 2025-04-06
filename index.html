@@ -4,12 +4,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cadastro de Transação</title>
+  <title>Finance App</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="container">
+  <nav class="navbar">
+    <button onclick="navigateTo('dashboard')">Visão Geral</button>
+    <button onclick="navigateTo('new-transaction')">Nova Transação</button>
+  </nav>
+
+  <div class="container" id="dashboard-section">
+    <h1>Visão Geral</h1>
+    <div class="summary">
+      <div class="saldo" id="balance">Saldo: R$ 0,00</div>
+      <div class="totals">
+        <span id="total-incomes">Entradas: R$ 0,00</span>
+        <span id="total-expenses">Saídas: R$ 0,00</span>
+      </div>
+      <div class="top-categories" id="top-categories">
+        <h2>Top Categorias</h2>
+        <ul></ul>
+      </div>
+      <canvas id="pieChart" width="300" height="300"></canvas>
+    </div>
+  </div>
+
+  <div class="container" id="new-transaction-section" style="display:none;">
     <h1>Nova Transação</h1>
     <form id="transaction-form">
       <div class="form-group">
@@ -60,6 +82,7 @@
     </form>
     <div id="message"></div>
   </div>
-  <script src="script.js"></script>
+
+  <script type="module" src="main.js"></script>
 </body>
 </html>
