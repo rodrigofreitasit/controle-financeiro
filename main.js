@@ -2,6 +2,7 @@
 import { saveTransaction } from './transactions.js';
 import { renderDashboard } from './dashboard.js';
 import { renderTransactionsList } from './list.js';
+import { toggleTheme, applySavedTheme } from './theme.js';
 
 const categoryOptions = {
   entrada: ["Salário", "Adiantamento", "Reembolso", "Outros"],
@@ -55,7 +56,10 @@ window.navigateTo = function (section) {
   if (section === "new-transaction") updateCategoryOptions(document.getElementById("type").value);
 };
 
+document.getElementById("toggle-theme").addEventListener("click", toggleTheme);
+
 window.addEventListener("DOMContentLoaded", () => {
+  applySavedTheme();
   renderDashboard();
   renderTransactionsList();
   updateCategoryOptions("entrada");
