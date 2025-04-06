@@ -69,21 +69,22 @@ function renderPieChart(data, total) {
     },
     plugins: [{
       id: 'center-text',
-      beforeDraw(chart) {
-        const { width } = chart;
-        const { height } = chart;
-        const ctx = chart.ctx;
-        ctx.restore();
-        const fontSize = Math.min(height, width) / 120;
-        ctx.font = `${fontSize}em Inter`;
-        ctx.textBaseline = "middle";
+      
+beforeDraw(chart) {
+  const { width, height } = chart;
+  const ctx = chart.ctx;
+  ctx.restore();
+  const fontSize = Math.min(width, height) / 10;
+  ctx.font = `${fontSize}px Inter`;
+  ctx.textBaseline = "middle";
 
-        const text = `Total: R$ ${total.toFixed(2)}`;
-        const textX = Math.round((width - ctx.measureText(text).width) / 2);
-        const textY = height / 2;
-        ctx.fillStyle = '#4F46E5';
-        ctx.fillText(text, textX, textY);
-        ctx.save();
+  const text = `Total: R$ ${total.toFixed(2)}`;
+  const textX = Math.round((width - ctx.measureText(text).width) / 2);
+  const textY = height / 2;
+  ctx.fillStyle = '#4F46E5';
+  ctx.fillText(text, textX, textY);
+  ctx.save();
+
       }
     }]
   });
