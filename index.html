@@ -13,6 +13,7 @@
   <nav class="navbar">
     <button onclick="navigateTo('dashboard')">Visão Geral</button>
     <button onclick="navigateTo('new-transaction')">Nova Transação</button>
+    <button onclick="navigateTo('list-transactions')">Todas Transações</button>
   </nav>
 
   <div class="container" id="dashboard-section">
@@ -81,6 +82,21 @@
       <button type="submit">Salvar Transação</button>
     </form>
     <div id="message"></div>
+  </div>
+
+  <div class="container" id="list-transactions-section" style="display:none;">
+    <h1>Todas Transações</h1>
+
+    <div class="form-group">
+      <label for="filter-type">Filtrar por Tipo</label>
+      <select id="filter-type">
+        <option value="todas">Todas</option>
+        <option value="entrada">Entradas</option>
+        <option value="saida">Saídas</option>
+      </select>
+    </div>
+
+    <ul id="transactions-list" class="transactions-list"></ul>
   </div>
 
   <script type="module" src="main.js"></script>
