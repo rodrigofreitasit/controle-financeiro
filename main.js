@@ -84,17 +84,19 @@ document.getElementById("transaction-form").addEventListener("submit", function 
   renderTransactionsList();
 });
 
+
 window.navigateTo = function (section) {
-  document.getElementById("invoice-section").style.display = section === "invoice" ? "block" : "none";
-  if (section === "invoice") renderInvoice();
   document.getElementById("dashboard-section").style.display = section === "dashboard" ? "block" : "none";
   document.getElementById("new-transaction-section").style.display = section === "new-transaction" ? "block" : "none";
   document.getElementById("list-transactions-section").style.display = section === "list-transactions" ? "block" : "none";
+  document.getElementById("invoice-section").style.display = section === "invoice" ? "block" : "none";
 
   if (section === "dashboard") renderDashboard();
   if (section === "list-transactions") renderTransactionsList();
   if (section === "new-transaction") updateCategoryOptions(document.getElementById("type").value);
+  if (section === "invoice") renderInvoice();
 };
+
 
 document.getElementById("toggle-theme").addEventListener("click", toggleTheme);
 
