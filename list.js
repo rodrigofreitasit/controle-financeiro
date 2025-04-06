@@ -2,17 +2,41 @@
 import { getTransactions } from './transactions.js';
 
 export function renderTransactionsList() {
-  const filter = document.getElementById("filter-type").value;
-  const listEl = document.getElementById("transactions-list");
-  const transactions = getTransactions().filter(t => filter === "todas" || t.type === filter);
+  const transactions = getTransactions();
+  const incomeBody = document.getElementById("incomes-table-body");
+  const expenseBody = document.getElementById("expenses-table-body");
 
-  listEl.innerHTML = transactions.map(tx => {
-    return `
-      <li>
-        <strong>${tx.category}</strong> - R$ ${parseFloat(tx.amount).toFixed(2)}<br/>
-        ${tx.type === "entrada" ? "Entrada" : "Saída"} | ${tx.payment} | ${tx.date}
-        ${tx.notes ? `<br/><em>${tx.notes}</em>` : ""}
-      </li>
-    `;
-  }).join("");
+  incomeBody.innerHTML = "";
+  expenseBody.innerHTML = "";
+
+  const entries = transactions.filter(t => t.type === "entrada");
+  const exits = transactions.filter(t => t.type === "saida");
+
+  if (entries.length === 0) {
+    incomeBody.innerHTML = "<tr><td colspan='3'>Nenhuma entrada encontrada</td></tr>";
+  } else {
+    entries.forEach(tx => {
+      incomeBody.innerHTML += `
+        <tr class="income-row">
+          <td>${tx.category}</td>
+          <td>R$ ${parseFloat(tx.amount).toFixed(2)}</td>
+          <td>${tx.date}</td>
+        </tr>
+      `;
+    });
+  }
+
+  if (exits.length === 0) {
+    expenseBody.innerHTML = "<tr><td colspan='3'>Nenhuma saída encontrada</td></tr>";
+  } else {
+    exits.forEach(tx => {
+      expenseBody.innerHTML += `
+        <tr class="expense-row">
+          <td>${tx.category}</td>
+          <td>R$ ${parseFloat(tx.amount).toFixed(2)}</td>
+          <td>${tx.date}</td>
+        </tr>
+      `;
+    });
+  }
 }

@@ -116,3 +116,23 @@ button[type="submit"]:hover {
   padding: 10px;
   font-size: 15px;
 }
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.transactions-table th, .transactions-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.transactions-table tr.income-row {
+  background-color: #d1fae5;
+}
+
+.transactions-table tr.expense-row {
+  background-color: #fee2e2;
+}

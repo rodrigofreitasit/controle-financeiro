@@ -50,13 +50,7 @@
 
       <div class="form-group">
         <label for="category">Categoria</label>
-        <select id="category">
-          <option value="alimentacao">Alimentação</option>
-          <option value="transporte">Transporte</option>
-          <option value="lazer">Lazer</option>
-          <option value="saude">Saúde</option>
-          <option value="outros">Outros</option>
-        </select>
+        <select id="category"></select>
       </div>
 
       <div class="form-group">
@@ -87,16 +81,25 @@
   <div class="container" id="list-transactions-section" style="display:none;">
     <h1>Todas Transações</h1>
 
-    <div class="form-group">
-      <label for="filter-type">Filtrar por Tipo</label>
-      <select id="filter-type">
-        <option value="todas">Todas</option>
-        <option value="entrada">Entradas</option>
-        <option value="saida">Saídas</option>
-      </select>
-    </div>
+    <section>
+      <h2>Entradas</h2>
+      <table class="transactions-table">
+        <thead>
+          <tr><th>Origem</th><th>Valor</th><th>Data</th></tr>
+        </thead>
+        <tbody id="incomes-table-body"></tbody>
+      </table>
+    </section>
 
-    <ul id="transactions-list" class="transactions-list"></ul>
+    <section>
+      <h2>Saídas</h2>
+      <table class="transactions-table">
+        <thead>
+          <tr><th>Origem</th><th>Valor</th><th>Data</th></tr>
+        </thead>
+        <tbody id="expenses-table-body"></tbody>
+      </table>
+    </section>
   </div>
 
   <script type="module" src="main.js"></script>
