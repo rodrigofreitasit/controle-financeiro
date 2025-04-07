@@ -21,15 +21,16 @@ export function renderDashboard() {
 
   const categories = Object.keys(categoryTotals);
   const values = Object.values(categoryTotals);
-  const total = values.reduce((acc, v) => acc + v, 0);
 
+  const total = values.reduce((acc, v) => acc + v, 0);
   const centerLabel = document.getElementById("chart-center-label");
   if (centerLabel) {
     centerLabel.textContent = `Total: R$ ${total.toFixed(2)}`;
   }
 
-  const chartColors = ["#f87171", "#60a5fa", "#fbbf24", "#34d399", "#a78bfa", "#f472b6"];
-  const ctx = document.getElementById("pieChart").getContext("2d");
+  const canvas = document.getElementById("pieChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
   new Chart(ctx, {
     type: "doughnut",
@@ -37,7 +38,9 @@ export function renderDashboard() {
       labels: categories,
       datasets: [{
         data: values,
-        backgroundColor: chartColors
+        backgroundColor: [
+          "#f87171", "#60a5fa", "#fbbf24", "#34d399", "#a78bfa", "#f472b6"
+        ]
       }]
     },
     options: {
@@ -53,16 +56,7 @@ export function renderDashboard() {
   if (topList) {
     topList.innerHTML = categories.map((cat, i) => {
       const percent = ((values[i] / total) * 100).toFixed(1);
-      const color = chartColors[i % chartColors.length];
-      return `
-        <li>
-          <div class="category-label">
-            <span class="color-dot" style="background-color: ${color}"></span>
-            <span class="category-name">${cat}</span>
-          </div>
-          <div class="category-amount">R$ ${values[i].toFixed(2)} (${percent}%)</div>
-        </li>
-      `;
+      return `<li><strong>${cat}</strong>: R$ ${values[i].toFixed(2)} (${percent}%)</li>`;
     }).join("");
   }
 }
