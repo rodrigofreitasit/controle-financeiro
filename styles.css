@@ -508,3 +508,49 @@ button[type="submit"]:hover {
   height: 18px;
   fill: var(--button-text);
 }
+
+.chart-center-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: clamp(16px, 4vw, 24px);
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.top-categories ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.top-categories li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  box-shadow: 0 1px 4px var(--shadow);
+}
+
+.top-categories li::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: var(--accent);
+}
+
+.top-categories li span {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text);
+}

@@ -23,13 +23,9 @@ export function renderDashboard() {
   const values = Object.values(categoryTotals);
 
   const total = values.reduce((acc, v) => acc + v, 0);
-  const centerLabel = document.getElementById("chart-center-label");
-  if (centerLabel) {
-    centerLabel.textContent = `Total: R$ ${total.toFixed(2)}`;
-  }
+  const percentages = values.map(v => ((v / total) * 100).toFixed(1));
 
   const canvas = document.getElementById("pieChart");
-  if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
   new Chart(ctx, {
@@ -45,18 +41,38 @@ export function renderDashboard() {
     },
     options: {
       cutout: "70%",
+      plugins: [{
+        id: 'center-text',
+        beforeDraw(chart) {
+          const { width, height } = chart;
+          const ctx = chart.ctx;
+          ctx.save();
+
+          const text = `Total: R$ ${total.toFixed(2)}`;
+          let fontSize = Math.min(width, height) / 12;
+          fontSize = Math.max(Math.min(fontSize, 24), 12);
+
+          ctx.font = `${fontSize}px Inter`;
+          ctx.textBaseline = "middle";
+          ctx.textAlign = "center";
+          ctx.fillStyle = '#4F46E5';
+
+          const textX = width / 2;
+          const textY = height / 2;
+
+          ctx.clearRect(0, 0, width, height);
+          chart.draw();
+          ctx.fillText(text, textX, textY);
+          ctx.restore();
+        }
+      }],
       responsive: true,
-      plugins: {
-        legend: { display: false }
-      }
+      maintainAspectRatio: false
     }
   });
 
   const topList = document.querySelector("#top-categories ul");
-  if (topList) {
-    topList.innerHTML = categories.map((cat, i) => {
-      const percent = ((values[i] / total) * 100).toFixed(1);
-      return `<li><strong>${cat}</strong>: R$ ${values[i].toFixed(2)} (${percent}%)</li>`;
-    }).join("");
-  }
+  topList.innerHTML = categories.map((cat, i) => `
+    <li><strong>${cat}</strong>: R$ ${values[i].toFixed(2)} (${percentages[i]}%)</li>
+  `).join("");
 }
