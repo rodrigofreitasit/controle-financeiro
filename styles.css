@@ -1,33 +1,65 @@
 
+:root {
+  --bg: #f8f9fa;
+  --text: #212529;
+  --accent: #4F46E5;
+  --card-bg: #ffffff;
+  --card-border: #e9ecef;
+  --input-bg: #ffffff;
+  --input-border: #e0e0e0;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --button-bg: #f1f5f9;
+  --button-text: #4F46E5;
+}
+
+.theme-dark {
+  --bg: #1a1c1f;
+  --text: #f1f5f9;
+  --accent: #60a5fa;
+  --card-bg: #2a2e35;
+  --card-border: #374151;
+  --input-bg: #2a2e35;
+  --input-border: #4b5563;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --button-bg: #374151;
+  --button-text: #ffffff;
+}
+
 body {
   font-family: Arial, sans-serif;
-  background: #f9fafb;
+  background: var(--bg);
+  color: var(--text);
   margin: 0;
-  padding: 20px;
-  color: #111827;
+  padding-bottom: 80px;
 }
+
 .container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: auto;
+  padding: 16px;
 }
+
 .card {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 12px;
   padding: 16px 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px var(--shadow);
   margin-bottom: 16px;
+  border: 1px solid var(--card-border);
 }
+
 .card-title {
   font-size: 16px;
   font-weight: 600;
-  color: #4F46E5;
+  color: var(--accent);
   margin-bottom: 8px;
 }
+
 .card-content {
   font-size: 20px;
   font-weight: 700;
-  color: #111827;
 }
+
 .row-cards {
   display: flex;
   gap: 16px;
@@ -41,9 +73,9 @@ body {
     flex: 1;
   }
 }
+
 .chart-wrapper {
   position: relative;
-  width: 100%;
   max-width: 300px;
   height: 300px;
   margin: 0 auto;
@@ -59,8 +91,69 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: 600;
-  color: #4F46E5;
+  color: var(--accent);
   font-size: clamp(14px, 4vw, 22px);
   text-align: center;
   pointer-events: none;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 6px 0;
+  box-shadow: 0 -1px 6px var(--shadow);
+  z-index: 1000;
+}
+
+.bottom-nav button {
+  background: var(--button-bg);
+  border: none;
+  border-radius: 8px;
+  padding: 6px;
+  margin: 0 4px;
+  flex: 1;
+  max-width: 70px;
+  font-size: 10px;
+  color: var(--button-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+form .form-group {
+  margin-bottom: 16px;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--text);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+th, td {
+  border: 1px solid var(--card-border);
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: var(--card-bg);
+  color: var(--accent);
 }
