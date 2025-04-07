@@ -554,3 +554,15 @@ button[type="submit"]:hover {
   font-size: 14px;
   color: var(--text);
 }
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.chart-center-label {
+  z-index: 1;
+}
