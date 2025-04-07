@@ -39,6 +39,98 @@
       </div>
     </div>
   </div>
-  <script type="module" src="dashboard.js"></script>
+
+  <div class="container" id="new-transaction-section" style="display:none;">
+    <h1>Nova Transação</h1>
+    <form id="transaction-form">
+      <div class="form-group">
+        <label for="amount">Valor</label>
+        <input type="number" id="amount" required placeholder="Ex: 100.00" />
+      </div>
+      <div class="form-group">
+        <label for="type">Tipo</label>
+        <select id="type">
+          <option value="entrada">Entrada</option>
+          <option value="saida">Saída</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="category">Categoria</label>
+        <select id="category"></select>
+      </div>
+      <div class="form-group">
+        <label for="payment">Pagamento</label>
+        <select id="payment">
+          <option value="debito">Débito</option>
+          <option value="credito">Crédito</option>
+          <option value="pix">Pix</option>
+          <option value="dinheiro">Dinheiro</option>
+        </select>
+      </div>
+      <div class="form-group" id="installments-toggle" style="display:none;">
+        <label>
+          <input type="checkbox" id="is-parceled" />
+          Parcelar compra?
+        </label>
+      </div>
+      <div class="form-group" id="installments-group" style="display:none;">
+        <label for="installments">Quantidade de parcelas</label>
+        <input type="number" id="installments" min="1" max="24" value="1" />
+      </div>
+      <div class="form-group">
+        <label for="date">Data</label>
+        <input type="date" id="date" required />
+      </div>
+      <div class="form-group">
+        <label for="notes">Observação</label>
+        <textarea id="notes" rows="2" placeholder="Opcional..."></textarea>
+      </div>
+      <button type="submit">Salvar Transação</button>
+    </form>
+    <div id="message"></div>
+  </div>
+
+  <div class="container" id="list-transactions-section" style="display:none;">
+    <h1>Todas as Transações</h1>
+    <div class="transactions-table">
+      <h2>Entradas</h2>
+      <table id="income-table">
+        <thead>
+          <tr><th>Origem</th><th>Valor</th><th>Data</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <h2>Saídas</h2>
+      <table id="expense-table">
+        <thead>
+          <tr><th>Origem</th><th>Valor</th><th>Data</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="container" id="invoice-section" style="display:none;">
+    <h1 style="text-align:center;">Fatura do Cartão</h1>
+    <div class="form-group">
+      <label for="invoice-month">Mês da Fatura</label>
+      <input type="month" id="invoice-month" />
+    </div>
+    <div class="card">
+      <div class="card-title">Total da Fatura</div>
+      <div class="card-content" id="invoice-total">R$ 0,00</div>
+    </div>
+    <ul id="invoice-list" class="transactions-list"></ul>
+  </div>
+
+  <div class="bottom-nav">
+    <button onclick="navigateTo('dashboard')">Início</button>
+    <button onclick="navigateTo('list-transactions')">Transações</button>
+    <button onclick="navigateTo('new-transaction')">Nova</button>
+    <button onclick="navigateTo('invoice')">Fatura</button>
+    <button id="toggle-theme">Tema</button>
+  </div>
+
+  <script type="module" src="main.js"></script>
 </body>
 </html>
