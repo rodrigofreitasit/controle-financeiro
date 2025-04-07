@@ -1,13 +1,8 @@
 
-const transactions = [
-  { type: "entrada", amount: 3000 },
-  { type: "saida", amount: 400, category: "Alimentação" },
-  { type: "saida", amount: 250, category: "Transporte" },
-  { type: "saida", amount: 100, category: "Lazer" },
-  { type: "saida", amount: 50, category: "Saúde" }
-];
+import { getTransactions } from './transactions.js';
 
-function renderDashboard() {
+export function renderDashboard() {
+  const transactions = getTransactions();
   const incomes = transactions.filter(t => t.type === "entrada");
   const expenses = transactions.filter(t => t.type === "saida");
 
@@ -26,11 +21,16 @@ function renderDashboard() {
 
   const categories = Object.keys(categoryTotals);
   const values = Object.values(categoryTotals);
+
   const total = values.reduce((acc, v) => acc + v, 0);
+  const centerLabel = document.getElementById("chart-center-label");
+  if (centerLabel) {
+    centerLabel.textContent = `Total: R$ ${total.toFixed(2)}`;
+  }
 
-  document.getElementById("chart-center-label").textContent = `Total: R$ ${total.toFixed(2)}`;
-
-  const ctx = document.getElementById("pieChart").getContext("2d");
+  const canvas = document.getElementById("pieChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
   new Chart(ctx, {
     type: "doughnut",
@@ -38,25 +38,25 @@ function renderDashboard() {
       labels: categories,
       datasets: [{
         data: values,
-        backgroundColor: ["#f87171", "#60a5fa", "#fbbf24", "#34d399"]
+        backgroundColor: [
+          "#f87171", "#60a5fa", "#fbbf24", "#34d399", "#a78bfa", "#f472b6"
+        ]
       }]
     },
     options: {
       cutout: "70%",
       responsive: true,
       plugins: {
-        legend: {
-          display: false
-        }
+        legend: { display: false }
       }
     }
   });
 
-  const topList = document.querySelector(".top-categories ul");
-  topList.innerHTML = categories.map((cat, i) => {
-    const percent = ((values[i] / total) * 100).toFixed(1);
-    return `<li><strong>${cat}</strong>: R$ ${values[i].toFixed(2)} (${percent}%)</li>`;
-  }).join("");
+  const topList = document.querySelector("#top-categories ul");
+  if (topList) {
+    topList.innerHTML = categories.map((cat, i) => {
+      const percent = ((values[i] / total) * 100).toFixed(1);
+      return `<li><strong>${cat}</strong>: R$ ${values[i].toFixed(2)} (${percent}%)</li>`;
+    }).join("");
+  }
 }
-
-renderDashboard();
