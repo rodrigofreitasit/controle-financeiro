@@ -55,7 +55,7 @@ export function renderDashboard() {
       const percent = ((values[i] / total) * 100).toFixed(1);
       const color = chartColors[i % chartColors.length];
       return `
-        <li style="--accent:${color}">
+        <li>
           <div class="category-label">
             <span class="color-dot" style="background-color: ${color}"></span>
             <span class="category-name">${cat}</span>
