@@ -1,190 +1,50 @@
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finance App</title>
+  <title>Controle Financeiro</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <nav class="navbar">
-    <button onclick="navigateTo('dashboard')">Visão Geral</button>
-    <button onclick="navigateTo('new-transaction')">Nova Transação</button>
-    <button onclick="navigateTo('list-transactions')">Todas Transações</button>
-  </nav>
-
-  
-<div class="container" id="dashboard-section">
-  <h1 style="text-align:center; font-size:22px; margin-bottom:16px;">Visão Geral</h1>
-  <div class="dashboard-grid">
-    <div class="card">
-      <div class="card-title">Saldo Atual</div>
-      <div class="card-content" id="balance">R$ 0,00</div>
-    </div>
-    <div class="row-cards">
-      <div class="card">
-        <div class="card-title">Entradas</div>
-        <div class="card-content" id="total-incomes">R$ 0,00</div>
+  <div class="container" id="dashboard-section">
+    <h1 style="text-align:center;">Visão Geral</h1>
+    <div class="dashboard-grid">
+      <div class="card"><div class="card-title">Saldo Atual</div><div class="card-content" id="balance">R$ 0,00</div></div>
+      <div class="row-cards">
+        <div class="card"><div class="card-title">Entradas</div><div class="card-content" id="total-incomes">R$ 0,00</div></div>
+        <div class="card"><div class="card-title">Saídas</div><div class="card-content" id="total-expenses">R$ 0,00</div></div>
       </div>
-      <div class="card">
-        <div class="card-title">Saídas</div>
-        <div class="card-content" id="total-expenses">R$ 0,00</div>
+      <div class="card"><div class="card-title">Gráfico por Categoria</div>
+        <div class="chart-wrapper">
+          <canvas id="pieChart"></canvas>
+          <div class="chart-center-label" id="chart-center-label"></div>
+        </div>
       </div>
-    </div>
-    <div class="card">
-  <div class="card-title">Gráfico por Categoria</div>
-  <div class="chart-wrapper">
-    <canvas id="pieChart"></canvas>
-    <div class="chart-center-label" id="chart-center-label"></div>
-  </div>
-</div>
-    <div class="card">
-      <div class="card-title">Top Categorias</div>
-      <div id="top-categories">
+      <div class="card top-categories" id="top-categories">
+        <div class="card-title">Top Categorias</div>
         <ul></ul>
       </div>
     </div>
   </div>
-</div>
-        
 
-  
-<div class="container" id="new-transaction-section" style="display:none;">
-  <h1>Nova Transação</h1>
-  <form id="transaction-form">
-    <div class="form-group">
-      <label for="amount">Valor</label>
-      <input type="number" id="amount" required placeholder="Ex: 100.00" />
-    </div>
+  <div class="container" id="history-section" style="display:none;">
+    <h1 style="text-align:center;">Histórico Mensal</h1>
+    <div id="history-list"></div>
+    <div id="history-summary" style="margin-top: 24px;"></div>
+    <canvas id="history-chart" height="300" style="margin-top: 20px;"></canvas>
+  </div>
 
-    <div class="form-group">
-      <label for="type">Tipo</label>
-      <select id="type">
-        <option value="entrada">Entrada</option>
-        <option value="saida">Saída</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="category">Categoria</label>
-      <select id="category"></select>
-    </div>
-
-    <div class="form-group">
-      <label for="payment">Pagamento</label>
-      <select id="payment">
-        <option value="debito">Débito</option>
-        <option value="credito">Crédito</option>
-        <option value="pix">Pix</option>
-        <option value="dinheiro">Dinheiro</option>
-      </select>
-    </div>
-
-    <div class="form-group" id="installments-toggle" style="display:none;">
-      <label>
-        <input type="checkbox" id="is-parceled" />
-        Parcelar compra?
-      </label>
-    </div>
-
-    <div class="form-group" id="installments-group" style="display:none;">
-      <label for="installments">Quantidade de parcelas</label>
-      <input type="number" id="installments" min="1" max="24" value="1" />
-    </div>
-
-    <div class="form-group">
-      <label for="date">Data</label>
-      <input type="date" id="date" required />
-    </div>
-
-    <div class="form-group">
-      <label for="notes">Observação</label>
-      <textarea id="notes" rows="2" placeholder="Opcional..."></textarea>
-    </div>
-
-    <button type="submit">Salvar Transação</button>
-  </form>
-  <div id="message"></div>
-</div>
-
-
-  <div class="container" id="list-transactions-section" style="display:none;">
-    <h1>Todas Transações</h1>
-
-    <section>
-      <h2>Entradas</h2>
-      <table class="transactions-table">
-        <thead>
-          <tr><th>Origem</th><th>Valor</th><th>Data</th></tr>
-        </thead>
-        <tbody id="incomes-table-body"></tbody>
-      </table>
-    </section>
-
-    <section>
-      <h2>Saídas</h2>
-      <table class="transactions-table">
-        <thead>
-          <tr><th>Origem</th><th>Valor</th><th>Data</th></tr>
-        </thead>
-        <tbody id="expenses-table-body"></tbody>
-      </table>
-    </section>
+  <div class="bottom-nav">
+    <button onclick="navigateTo('dashboard')">Início</button>
+    <button onclick="navigateTo('list-transactions')">Transações</button>
+    <button onclick="navigateTo('new-transaction')">Nova</button>
+    <button onclick="navigateTo('invoice')">Fatura</button>
+    <button onclick="navigateTo('history')">Histórico</button>
+    <button id="toggle-theme">Tema</button>
   </div>
 
   <script type="module" src="main.js"></script>
-
-
-<div class="bottom-nav">
-  <button onclick="navigateTo('dashboard')">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-    </svg>
-    Início
-  </button>
-  <button onclick="navigateTo('list-transactions')">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/>
-    </svg>
-    Transações
-  </button>
-  <button onclick="navigateTo('new-transaction')">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="none">
-      <path d="M12 4v16m8-8H4"/>
-    </svg>
-    Nova
-  </button>
-  <button onclick="navigateTo('invoice')">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z"/>
-    </svg>
-    Fatura
-  </button>
-  <button id="toggle-theme" title="Alternar tema">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm4.22 1.78a1 1 0 011.42 0l.7.7a1 1 0 01-1.42 1.42l-.7-.7a1 1 0 010-1.42zM21 11a1 1 0 110 2h-1a1 1 0 110-2h1zm-2.64 7.36a1 1 0 10-1.42 1.42l.7.7a1 1 0 001.42-1.42l-.7-.7zM13 20a1 1 0 11-2 0v-1a1 1 0 112 0v1zm-6.36-.64a1 1 0 00-1.42 1.42l.7.7a1 1 0 001.42-1.42l-.7-.7zM4 11a1 1 0 100 2H3a1 1 0 100-2h1zm2.64-7.36a1 1 0 10-1.42 1.42l.7.7a1 1 0 001.42-1.42l-.7-.7zM12 6a6 6 0 100 12A6 6 0 0012 6z"/>
-    </svg>
-    Tema
-  </button>
-</div>
-
-
-
-  <div class="container" id="invoice-section" style="display:none;">
-    <h1 style="text-align:center; font-size:22px;">Fatura do Cartão</h1>
-    <div class="form-group">
-      <label for="invoice-month">Mês da Fatura</label>
-      <input type="month" id="invoice-month" />
-    </div>
-    <div class="card">
-      <div class="card-title">Total da Fatura</div>
-      <div class="card-content" id="invoice-total">R$ 0,00</div>
-    </div>
-    <ul id="invoice-list" class="transactions-list"></ul>
-  </div>
-
 </body>
 </html>
